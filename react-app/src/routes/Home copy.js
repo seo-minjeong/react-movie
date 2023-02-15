@@ -6,18 +6,9 @@ import Pagination from "../components/Pagination";
 function Home() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
-  // currentPage: 현재 보여줄 페이지
-  const [currentPage, setCurrentPage] = useState(1);
-  // postPerPage: 페이지에서 보여줄 데이터의 개수(limits와 같은거)
-  const [postPerPage, setPostPerPage] = useState(10);
-
-  // 페이지 내에서 '마지막 포스트'의 인덱스 값(10)
-  const indexOfLastPost = currentPage * postPerPage;
-  // 페이지 내에서 '첫 포스트'의 인덱스 값(0)
-  const indexOfFirstPost = indexOfLastPost - postPerPage;
-  // '현재'보는 페이지에서 보여 줄 데이터(0, 10)
-  const currentPosts = movies.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   const getMovies = async () => {
     const json = await (
@@ -39,7 +30,7 @@ function Home() {
         </div>
       ) : (
         <div className={styles.movies}>
-          {currentPosts.map((movie) => (
+          {movies.slice(offset, offset + limit).map((movie) => (
             <Movie
               key={movie.id}
               id={movie.id}
@@ -50,11 +41,14 @@ function Home() {
               genres={movie.genres}
             />
           ))}
-          <Pagination
-            postPerPage={postPerPage}
-            totalPosts={movies.length}
-            paginate={paginate}
-          />
+          <footer>
+            <Pagination
+              total={movies.length}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+            />
+          </footer>
         </div>
       )}
     </div>
