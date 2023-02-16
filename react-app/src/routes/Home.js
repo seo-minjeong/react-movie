@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import Movie from "../components/Movie";
 import styles from "./Home.module.css";
+
+// component
+import Header from "../components/Header";
+import Movie from "../components/Movie";
 import Pagination from "../components/Pagination";
+
+// img
+import logo from "../img/logo.png";
 
 function Home() {
   const [loading, setLoading] = useState(true);
@@ -32,32 +38,35 @@ function Home() {
     getMovies();
   }, []);
   return (
-    <div className={styles.container}>
-      {loading ? (
-        <div className={styles.loader}>
-          <span>Loading...</span>
-        </div>
-      ) : (
-        <div className={styles.movies}>
-          {currentPosts.map((movie) => (
-            <Movie
-              key={movie.id}
-              id={movie.id}
-              year={movie.year}
-              coverImg={movie.medium_cover_image}
-              title={movie.title}
-              summary={movie.summary}
-              genres={movie.genres}
+    <>
+      <Header />
+      <div className={styles.container}>
+        {loading ? (
+          <div className={styles.loader}>
+            <span>Loading...</span>
+          </div>
+        ) : (
+          <div className={styles.movies}>
+            {currentPosts.map((movie) => (
+              <Movie
+                key={movie.id}
+                id={movie.id}
+                year={movie.year}
+                coverImg={movie.medium_cover_image}
+                title={movie.title}
+                summary={movie.summary}
+                genres={movie.genres}
+              />
+            ))}
+            <Pagination
+              postPerPage={postPerPage}
+              totalPosts={movies.length}
+              paginate={paginate}
             />
-          ))}
-          <Pagination
-            postPerPage={postPerPage}
-            totalPosts={movies.length}
-            paginate={paginate}
-          />
-        </div>
-      )}
-    </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 export default Home;

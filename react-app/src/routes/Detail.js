@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import styles from "./Detail.module.css";
+
+// components
+import Header from "../components/Header";
+
+// img
+import logo from "../img/logo.png";
 
 function Detail() {
   const [loading, setLoading] = useState(true);
@@ -19,22 +26,29 @@ function Detail() {
   }, []);
 
   return (
-    <div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <div>
-          <div>
-            <img src={detail.large_cover_image} alt="영화 이미지" />
-          </div>
-          <h1>{detail.title}</h1>
-          <ul>
-            <li>{detail.genres}</li>
-          </ul>
-          <p>{detail.description_intro}</p>
-        </div>
-      )}
-    </div>
+    <>
+      <Header />
+      <div className={styles.wrap}>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <>
+            <div className={styles.movie}>
+              <div className={styles.movie__img}>
+                <img src={detail.large_cover_image} alt="영화 이미지" />
+              </div>
+              <div className={styles.movie__content}>
+                <h1 className={styles.movie__title}>{detail.title}</h1>
+                <p>{detail.description_intro}</p>
+                <ul>
+                  <li>{detail.genres}</li>
+                </ul>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 

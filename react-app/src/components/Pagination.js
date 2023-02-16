@@ -34,13 +34,30 @@ const PageNumber = styled.li`
   list-style: none;
 `;
 const PageButton = styled.button`
-  cursor: pointer;
-  font-size: 2rem;
-  color: ${(props) => props.theme.uiColorOrange};
-  margin: 0 0.3rem;
+  position: relative;
+  font-size: 22px;
+  color: #fff;
+  margin: 0 20px;
   padding: 0;
   border: none;
   background: none;
+  cursor: pointer;
+
+  &:hover {
+    color: #ef6834;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 35px;
+      height: 35px;
+      border: 1px solid #ef6834;
+      border-radius: 50%;
+    }
+  }
 `;
 
 export default Pagination;
