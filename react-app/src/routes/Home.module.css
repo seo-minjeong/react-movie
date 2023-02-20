@@ -1,7 +1,5 @@
 .container {
   height: 100%;
-  display: flex;
-  justify-content: center;
 }
 
 .logo {
@@ -27,6 +25,7 @@
   grid-gap: 100px;
   padding: 50px;
   width: 80%;
+  margin: 0 auto;
   padding-top: 70px;
 }
 
